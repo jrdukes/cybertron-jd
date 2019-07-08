@@ -1,9 +1,27 @@
-import { or, contains, find, propEq, compose, map, filter, 
-  anyPass, join, path, reduce, append, __, ifElse, prop, 
-  always, sort, lt, pluck }  from 'ramda'
+import {
+  or,
+  contains,
+  find,
+  propEq,
+  compose,
+  map,
+  filter,
+  anyPass,
+  join,
+  path,
+  reduce,
+  append,
+  __,
+  ifElse,
+  prop,
+  always,
+  sort,
+  lt,
+  pluck
+} from 'ramda';
 
 //import fetch from 'isomorphic-fetch'
-import { test } from 'tape-modern'
+import { test } from 'tape-modern';
 
 /**
  * Level 6
@@ -34,8 +52,8 @@ import { test } from 'tape-modern'
 const challenge1 = deck => {
   // show card object
   // console.log(JSON.stringify(deck.cards[0], null, 2))
-  return null
-}
+  return null;
+};
 
 /** Level 6 = Challenge 2
  *
@@ -53,9 +71,8 @@ const challenge1 = deck => {
  *
  */
 const challenge2 = deck => {
-
-  return null
-}
+  return null;
+};
 
 /** level 6 - Challenge 3
  *
@@ -79,10 +96,10 @@ const challenge2 = deck => {
  *  Check out contains, prop, append, always, ifElse from ramdajs
  */
 const challenge3 = (deck, validate) => {
-  const correcthand = ['3S', '3H', '3C', 'AH', 'AS'] // create your own
-  const myhand = [] // add your code here
-  validate(myhand, correcthand)
-}
+  const correcthand = ['3S', '3H', '3C', 'AH', 'AS']; // create your own
+  const myhand = []; // add your code here
+  validate(myhand, correcthand);
+};
 
 /**
  * Level 6 - Challenge 4
@@ -94,49 +111,48 @@ const challenge3 = (deck, validate) => {
  *
  */
 const challenge4 = deck => {
-  return false 
-}
+  return false;
+};
 
 export default () => {
   fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=52')
     .then(res => res.json())
     .then(results => {
-      const deck = results
+      const deck = results;
       test('Level 6 - Challenge 1', t => {
         t.deepequals(challenge1(deck), {
           suit: 'CLUBS',
           value: 'ACE',
           images: {
-            svg: 'http://deckofcardsapi.com/static/img/AC.svg',
-            png: 'http://deckofcardsapi.com/static/img/AC.png'
+            svg: 'https://deckofcardsapi.com/static/img/AC.svg',
+            png: 'https://deckofcardsapi.com/static/img/AC.png'
           },
-          image: 'http://deckofcardsapi.com/static/img/AC.png',
+          image: 'https://deckofcardsapi.com/static/img/AC.png',
           code: 'AC'
-        })
-      })
+        });
+      });
 
       test('Level 6 - Challenge 2', t => {
-        
-        const results = challenge2(deck)
+        const results = challenge2(deck);
 
-        t.ok(contains('img/KH', or(results, '')))
-        t.ok(contains(`img/KD`, or(results, '')))
-        t.ok(contains(`img/JH`, or(results, '')))
-        t.ok(contains(`img/JS`, or(results, '')))
-      })
+        t.ok(contains('img/KH', or(results, '')));
+        t.ok(contains(`img/KD`, or(results, '')));
+        t.ok(contains(`img/JH`, or(results, '')));
+        t.ok(contains(`img/JS`, or(results, '')));
+      });
 
       test('Level 6 - Challenge 3', t => {
-        const desc = (a, b) => (lt(a, b) ? -1 : 1)
+        const desc = (a, b) => (lt(a, b) ? -1 : 1);
         challenge3(deck, (actualHand, correctHand) => {
           t.deepequals(
             sort(desc, pluck('code', actualHand)),
             sort(desc, correctHand)
-          )
-        })
-      })
+          );
+        });
+      });
 
       test('Level 6 - Challenge 4', t => {
-        const actual = pluck('code', challenge4(deck))
+        const actual = pluck('code', challenge4(deck));
         t.deepequals(actual, [
           '0C',
           '0D',
@@ -190,7 +206,7 @@ export default () => {
           'QD',
           'QH',
           'QS'
-        ])
-      })
-    })
-}
+        ]);
+      });
+    });
+};
